@@ -1,13 +1,3 @@
----
-title: 线上响应超时问题分析
-date: 2019-03-19 01:32:29
-tags: 
-- 网络编程
-- golang
----
-
-
-
 # 线上响应超时问题分析
 
 ## 现象
@@ -30,9 +20,9 @@ tags:
 #min default max, SO_SNDBUF and SO_RCVBUF 设置的最大值由net.core.wmem_max定义
 #使用SO_SNDBUF和SO_RCVBUF设置后，实际申请时会翻倍
 #为最大值net.core.wmem_max时也会翻倍
-net.ipv4.tcp_mem = 377637	503519	755274
-net.ipv4.tcp_rmem = 4096	87380	6291456
-net.ipv4.tcp_wmem = 4096	16384	4194304
+net.ipv4.tcp_mem = 377637 503519 755274
+net.ipv4.tcp_rmem = 4096 87380 6291456
+net.ipv4.tcp_wmem = 4096 16384 4194304
 
 net.core.rmem_default = 262144  
 net.core.wmem_default = 262144 
@@ -49,7 +39,7 @@ net.core.wmem_max = 16777216
 top查看服务负载正常。没有头绪，但是运气很好。
 
 ```
-lsof -p `pidof httpseg`	
+lsof -p `pidof httpseg` 
 ```
 
 打开文件数确实挺多，很多如下条目：
@@ -81,7 +71,7 @@ Max realtime priority     0                    0
 Max realtime timeout      unlimited            unlimited            us
 ```
 
-问题：too many open files 
+问题：too many open files
 
 此处有个严重的失误：
 
@@ -93,39 +83,38 @@ Max realtime timeout      unlimited            unlimited            us
 
 代码细节
 
-```
-	for {
-		rw, e := l.Accept()
-		if e != nil {
-			select {
-			case <-srv.getDoneChan():
-				return ErrServerClosed
-			default:
-			}
-			if ne, ok := e.(net.Error); ok && ne.Temporary() {
-				if tempDelay == 0 {
-					tempDelay = 5 * time.Millisecond
-				} else {
-					tempDelay *= 2
-				}
-				if max := 1 * time.Second; tempDelay > max {
-					tempDelay = max
-				}
-				srv.logf("http: Accept error: %v; retrying in %v", e, tempDelay)
-				time.Sleep(tempDelay)
-				continue
-			}
-			return e
+```go
+for {
+	rw, e := l.Accept()
+	if e != nil {
+		select {
+		case <-srv.getDoneChan():
+			return ErrServerClosed
+		default:
 		}
-		tempDelay = 0
-		c := srv.newConn(rw)
-		c.setState(c.rwc, StateNew) // before Serve can return
-		go c.serve(ctx)
+		if ne, ok := e.(net.Error); ok && ne.Temporary() {
+			if tempDelay == 0 {
+				tempDelay = 5 * time.Millisecond
+			} else {
+				tempDelay *= 2
+			}
+			if max := 1 * time.Second; tempDelay > max {
+				tempDelay = max
+			}
+			srv.logf("http: Accept error: %v; retrying in %v", e, tempDelay)
+			time.Sleep(tempDelay)
+			continue
+		}
+		return e
 	}
+	tempDelay = 0
+	c := srv.newConn(rw)
+	c.setState(c.rwc, StateNew) // before Serve can return
+	go c.serve(ctx)
+}
 ```
 
-
-![日志](https://oops-oom.github.io/img/accept_error.png)
+![日志](http://devops-1255386119.cos.ap-beijing.myqcloud.com/2023-01-13-122544.png)
 
 **打开文件数超过程序限制会导致accept失败，accept失败后会循环重试，这里的log默认是输出的stdout的。**
 
@@ -163,7 +152,7 @@ netstat -s | egrep "listen|LISTEN"
 19234 SYNs to LISTEN sockets dropped
 ```
 
-![[图片来自莿鸟栖草堂](https://www.cnxct.com/something-about-phpfpm-s-backlog/)](https://oops-oom.github.io/img/tcp.jpg)
+<img src="http://devops-1255386119.cos.ap-beijing.myqcloud.com/2023-01-13-122529.jpg" alt="图片来自莿鸟栖草堂" style="zoom:80%;" />
 
 too  many open files导致accept失败会重试导致响应耗时增加，同时accept失败会导致accept队列中的连接不能被及时取出，accept队列会慢；
 
@@ -183,11 +172,9 @@ syn队列慢了，server端会丢弃syn，超时后clienth会重发syn，导致�
 
 最小化服务，排除干扰，只调用分词库进行分析。
 
-```
 strace ./demo
-```
 
-![strace输出](https://oops-oom.github.io/img/strace01.png)
+<img src="http://devops-1255386119.cos.ap-beijing.myqcloud.com/2023-01-13-122519.png" alt="strace输出" style="zoom:67%;" />
 
 分析发现，确实创建了两个socket，但是只close了一个。
 

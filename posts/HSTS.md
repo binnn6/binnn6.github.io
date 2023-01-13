@@ -12,7 +12,7 @@ tags:
 
 - chome地址框中输入: `chrome://net-internals/#hsts`
 
-  ![image-20190807093731269](https://oops-oom.github.io/img/chrome-hsts.png)
+  ![chrome-hsts](http://devops-1255386119.cos.ap-beijing.myqcloud.com/2023-01-13-142125.png)
 
 - 把域名`cc.oa.com`、`a.cc.oa.com`分别delete
 
