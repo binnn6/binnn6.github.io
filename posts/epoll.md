@@ -96,10 +96,9 @@ The socket is non-blocking and the connection cannot be completed immediately.  
 
 #### nginx
 
-当然如果发送文件的话，nginx用的sendfile。  
-        sendfile的好处是啥呢？减少copy次数。
+当然如果发送文件的话，nginx用的sendfile。 sendfile的好处是啥呢？减少copy次数。
 
-  这里必须要解释下copy为啥费时费力的：
+这里必须要解释下copy为啥费时费力的：
   **copy一般情况下需要cpu,寄存器,一次只能copy 32bit,所以一个指令周期只能copy 32bit。**所以出现了DMA,sendbuf,splice,cow等技术。nginx在upstream也做了优化。具体见：[代理服务器中的内容防拷贝技术] [2] ,也因此有了面试题目：
 
 ```c

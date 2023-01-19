@@ -1,9 +1,3 @@
----
-title: golang中的for range语义的理解
-date: 2019-07-28 15:32:29
-tags: 
-- golang
----
 golang中for range经常会被用来遍历slice、map、chan、array,但是由于在某些情况下,其内部实现并不是你想的那样(make sence),所以使用时还是需要特别注意。
 
 以下是两个错误使用for range的场景

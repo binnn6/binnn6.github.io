@@ -1,11 +1,3 @@
----
-title: 对于nginx $request_time的一些理解
-date: 2017-03-19 01:32:29
-tags: 
-- 网络编程
-- nginx
----
-
 
 ## 以前的理解
 
@@ -17,7 +9,7 @@ tags:
 
 
 
-$request\_time对于很多CDN厂商来说是一个十分敏感的变量，某些时候可能涉及客户对于质量的考察，当然也许只是一些不太了解$request_time变量的人。
+request_time对于很多CDN厂商来说是一个十分敏感的变量，某些时候可能涉及客户对于质量的考察，当然也许只是一些不太了解$request_time变量的人。
 
 Nginx文档对于$request_time的定义如下：
 

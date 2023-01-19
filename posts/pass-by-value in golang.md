@@ -1,10 +1,3 @@
----
-title: pass-by-value in golang
-date: 2019-08-04 15:32:29
-tags: 
-- golang
----
-
 > For the impatient, golang is aways **pass-by-value**.
 >
 > Java is **strictly** pass-by-value, exactly as in C. 
@@ -32,7 +25,7 @@ func main() {
 
 	fixmap(amap)
 
-    for k, v := range amap {
+  for k, v := range amap {
 		fmt.Println(k, v)
 	}
 }
