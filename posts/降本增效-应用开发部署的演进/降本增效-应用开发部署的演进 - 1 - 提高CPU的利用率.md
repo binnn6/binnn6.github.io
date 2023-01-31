@@ -132,4 +132,10 @@ go算是完全自动化的调度，是否让出cpu完全由runtime决定，而�
 > 1. stackful和stackless实现的区别，libco、goroutine等实现方式、semi-coroutine
 > 3. 另外一些性能优化关键词 [spdk/dpdk](https://www.zhihu.com/question/313210254/answer/618781828)、io-uring、zero-copy、futex、DMA、sendfile、splice、cow、cpu affinity
 
-> C语言的unsafe特性致命打击了操作系统进化过程；导致mmu出现，kernel和userspace严格隔离和高成本切换，用户空间几乎彻底失去调度权，催生面向对象，又糊上GC，这些全部都是走了弯路。如果一开始就safe，后面会完全不同。  -- 微博上看到的观点、脑洞比较大、仅引用、不代表赞成
+> C语言的unsafe特性致命打击了操作系统进化过程；导致mmu出现，kernel和userspace严格隔离和高成本切换，用户空间几乎彻底失去调度权，催生面向对象，又糊上GC，这些全部都是走了弯路。如果一开始就safe，后面会完全不同。 
+>
+> ​                                                                -- 微博上看到的观点、脑洞比较大、仅引用、不代表赞成
+
+---
+
+**[查看原文](https://oops-oom.github.io/posts/%E9%99%8D%E6%9C%AC%E5%A2%9E%E6%95%88-%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E9%83%A8%E7%BD%B2%E7%9A%84%E6%BC%94%E8%BF%9B/%E9%99%8D%E6%9C%AC%E5%A2%9E%E6%95%88-%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E9%83%A8%E7%BD%B2%E7%9A%84%E6%BC%94%E8%BF%9B%20-%200%20-%20%E5%AF%BC%E8%AF%AD.html)**
