@@ -2,6 +2,11 @@
 
 > 由于本人非算法背景、本文未描述任何算法原理、尽管如此，还是会有很多地方说的可能不正确，有任何问题都欢迎指正。
 
+[TOC]
+
+
+
+
 ## Stable Diffusion基本概念与原理
 
 ![sd-pipeline](http://devops-1255386119.cos.ap-beijing.myqcloud.com/2023-07-13-053448.png)
@@ -203,11 +208,11 @@ diffusers代码结构合理、简单、外部依赖少，是开发人员二次�
 
 ###Stable Diffusion加载模型、初始化 pipeline
 
-#### from_pretrained
+#### DiffusionPipeline.from_pretrained()
 
 下载或者使用本地的模型、根据model_index.json初始化 pipeline 以及其所需要的模块
 
-1. 下载模型或者直接使用本地的模型；pretrained_model_name_or_path 
+1. 下载模型或者直接使用本地的模型；pretrained_model_name_or_path   
 
    ```bash
    models--runwayml--stable-diffusion-v1-5
@@ -303,7 +308,7 @@ diffusers代码结构合理、简单、外部依赖少，是开发人员二次�
 
 支持加载safetensors文件
 
-### 执行推理
+### pipeline()执行推理 
 
 ```python
     def __call__(
@@ -558,7 +563,7 @@ images[0]
 
 ### 面部修复 - CodeFormer
 
-[CodeFormer repo](https://github.com/sczhou/CodeFormer)
+diffusers库中并不包含面部修复功能、查看sd webui源码发现其中面部修复的功能是使用了[CodeFormer repo](https://github.com/sczhou/CodeFormer)。使用也很简单。
 
 ```python
 # Clone CodeFormer and enter the CodeFormer folder
@@ -784,10 +789,6 @@ conda install -c huggingface transformers diffusers
 conda install -y jupyter notebook requests
 ```
 
-https://pytorch.org/
-
-https://raw.githubusercontent.com/CompVis/stable-diffusion/main/configs/stable-diffusion/v1-inference.yaml
-
 ## 附2 开发环境
 
 以上实例代码都是在jupter notebook中可运行的。如以其他方式运行，需要做些变更。
@@ -799,3 +800,6 @@ https://raw.githubusercontent.com/CompVis/stable-diffusion/main/configs/stable-d
 - https://pytorch.org/blog/accelerated-diffusers-pt-20/
 - https://huggingface.co/docs/diffusers/v0.18.2/en/training/distributed_inference#accelerate
 - [https://huggingface.co/blog/stable_diffusion#how-does-stable-diffusion-work](https://huggingface.co/blog/stable_diffusion#how-does-stable-diffusion-work)
+
+若有格式问题或者后续更新，可见原文。[🤗 D🧨 ffusers调研](https://binnn6.github.io/posts/diffusers%E8%B0%83%E7%A0%94.html)
+
