@@ -4,6 +4,8 @@
 
 ## Stable Diffusion基本概念与原理
 
+### 基本流程
+
 ![sd-pipeline](http://devops-1255386119.cos.ap-beijing.myqcloud.com/2023-07-13-053448.png)
 
 文生推理阶段主要流程：
