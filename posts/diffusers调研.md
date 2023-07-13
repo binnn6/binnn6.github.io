@@ -2,11 +2,6 @@
 
 > 由于本人非算法背景、本文未描述任何算法原理、尽管如此，还是会有很多地方说的可能不正确，有任何问题都欢迎指正。
 
-[TOC]
-
-
-
-
 ## Stable Diffusion基本概念与原理
 
 ![sd-pipeline](http://devops-1255386119.cos.ap-beijing.myqcloud.com/2023-07-13-053448.png)
