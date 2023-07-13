@@ -614,7 +614,7 @@ txt2img的核心逻辑位于
 
 - 函数: `sample(self, conditioning, unconditional_conditioning, seeds, subseeds, subseed_strength, prompts`
 
-![image-20230712152457898](2023-07-12-072500-20230713134123949.png)
+![image-20230712152457898](http://devops-1255386119.cos.ap-beijing.myqcloud.com/2023-07-13-054317.png)
 
 如代码所示，其实text2img + Hires.fix其实就是text2img + upscaler + img2img。
 
@@ -626,7 +626,7 @@ txt2img的核心逻辑位于
 
 而其他情况则是调用对应的模型预测得到对应图像，然后vae encode获得samples。Upscaler阶段产生的samples为img2img阶段的输入；详细代码如下：
 
-![image-20230712210733311](2023-07-12-130736-20230713134135989.png)
+![image-20230712210733311](http://devops-1255386119.cos.ap-beijing.myqcloud.com/2023-07-13-054302.png)
 
 其中upscaler用到了[Real-ESRGAN](https://github.com/xinntao/Real-ESRGAN),模型列表如下：
 
