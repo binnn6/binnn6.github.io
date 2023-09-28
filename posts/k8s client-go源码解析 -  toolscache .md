@@ -1,4 +1,6 @@
-# k8s client-go tools/cache 源码解析
+# k8s client-go源码解析 -  1) tools/cache 
+
+> client-go是一个用来与Kubernetes API交互的go工具库，开发CRD需要用到的底层库。之前简略的看过其源码，但是不够细致，导致对于一些概念理解不够深刻。所以，准备再抽时间细读一下。
 
 ![自定义控制器的工作流程示意图](http://devops-1255386119.cos.ap-beijing.myqcloud.com/2023-09-24-075942.jpg)
 
@@ -504,9 +506,9 @@ func (r *Reflector) Run(stopCh <-chan struct{}) {
 
 而通过bookmark可以server端可以周期性的给client-go发送最新的rv，这样client-go重连后就可以根据bookmark定义的rv增量的消费数据。
 
-> 直接记录watch到的最新的resource version不就可以了么?
+> [k8s client-go tools/cache 源码解析](posts/k8s client-go源码解析 -   tools/cache .md.html) 2023.09
 >
-> 要知道api-server给client-go同步消息的时候，就只是同步给定gvk的资源。所以如果client-go要记录最新rv的话，就要重复的通过api-server查询。
+> 2020
 
 ps: 此处 `rv=ResourceVersion`
 
@@ -587,13 +589,13 @@ func (c *controller) Run(stopCh <-chan struct{}) {
 }
 ```
 
-## SharedInformer
+## 2019
 
 既然有Informer为什么还需要shared informer呢？
 
 主要是为了实现相同资源类型reflector共享，同时有助于缓解api-server的压力。
 
-比如两个controller都希望侦听pods资源的变更，就没必要分别维护自己的reflector和请求api-server进行listwatch。
+[一篇微博引发的思考](posts/epoll.html) 
 
 ### 具体是如何实现的呢？
 
@@ -751,7 +753,7 @@ func (s *sharedIndexInformer) Run(stopCh <-chan struct{}) {
 }
 ```
 
-### processorListener pop
+### 
 
 ```go
 func (p *processorListener) pop() {

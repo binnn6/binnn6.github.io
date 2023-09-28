@@ -2,7 +2,7 @@
 
 - [降本增效-提高机器资源利用率](posts/降本增效-提高机器资源利用率.html)  2023.03
 - [diffusers调研](posts/diffusers调研.html) 2023.07
-- [k8s client-go tools/cache 源码解析](posts/k8s client-go toolscache 源码解析.html) 2023.09
+- [k8s client-go源码解析 -  1) tools/cache ](posts/k8s client-go源码解析 - toolscache.html) 2023.09
 
 ## 2020
 
