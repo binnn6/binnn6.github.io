@@ -589,13 +589,13 @@ func (c *controller) Run(stopCh <-chan struct{}) {
 }
 ```
 
-## 2019
+## SharedInformer
 
 既然有Informer为什么还需要shared informer呢？
 
 主要是为了实现相同资源类型reflector共享，同时有助于缓解api-server的压力。
 
-[一篇微博引发的思考](posts/epoll.html) 
+比如两个controller都希望侦听pods资源的变更，就没必要分别维护自己的reflector和请求api-server进行listwatch。
 
 ### 具体是如何实现的呢？
 
