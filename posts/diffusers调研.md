@@ -6,6 +6,8 @@
 
 ### 基本流程
 
+![image-20230908150001913](http://devops-1255386119.cos.ap-beijing.myqcloud.com/2023-09-08-073335.png)
+
 ![sd-pipeline](http://devops-1255386119.cos.ap-beijing.myqcloud.com/2023-07-13-053448.png)
 
 文生推理阶段主要流程：
@@ -70,7 +72,7 @@
 
 而另外一种方式是基于diffusers库进行开发。
 
-diffusers是huggingface开源的、一个diffusion models的工具库，包含unet、采样器、vae等实现，同时也支持将类似文生图、图生图的逻辑抽象成pipeline。
+diffusers是huggingface开源的、一个diffusion models的**工具库**，专注于**扩散模型**的处理，包含unet、采样器、vae等实现，同时也支持将类似文生图、图生图的逻辑抽象成pipeline。
 
 > 🤗 Diffusers is the go-to library for state-of-the-art pretrained diffusion models for generating images, audio, and even 3D structures of molecules. 
 
