@@ -1,4 +1,4 @@
-# k8s client-go源码解析 -  1) tools/cache 
+# `k8s` client-go源码解析 -  1) tools/cache 
 
 > client-go是一个用来与Kubernetes API交互的go工具库，开发CRD需要用到的底层库。之前简略的看过其源码，但是不够细致，导致对于一些概念理解不够深刻。所以，准备再抽时间细读一下。
 
@@ -506,9 +506,9 @@ func (r *Reflector) Run(stopCh <-chan struct{}) {
 
 而通过bookmark可以server端可以周期性的给client-go发送最新的rv，这样client-go重连后就可以根据bookmark定义的rv增量的消费数据。
 
-> [k8s client-go tools/cache 源码解析](posts/k8s client-go源码解析 -   tools/cache .md.html) 2023.09
+> 直接记录watch到的最新的resource version不就可以了么?
 >
-> 2020
+> 要知道api-server给client-go同步消息的时候，就只是同步给定gvk的资源。所以如果client-go要记录最新rv的话，就要重复的通过api-server查询。
 
 ps: 此处 `rv=ResourceVersion`
 
