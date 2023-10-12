@@ -753,7 +753,9 @@ func (s *sharedIndexInformer) Run(stopCh <-chan struct{}) {
 }
 ```
 
-### 
+pop函数的代码比较难懂，这里要搞懂的话，要先搞清楚它的作用, 接收addCh的数据发送到nextCh, 如果是这样的话，那应该很简单，为啥pop这么复杂呢？
+原因是多个`processorListener`在`distribute`中被依次调用，而对应的`listener.add`会写`addCh`,假如`addCh`阻塞了,就会影响其他的` listener`.
+另外如果队列为空的话,就不再走`pendingNotifications`,而是直接发到`p.nextCh`.
 
 ```go
 func (p *processorListener) pop() {
@@ -787,9 +789,7 @@ func (p *processorListener) pop() {
 }
 ```
 
-pop函数的代码比较难懂，这里要搞懂的话，要先搞清楚它的作用, 接收addCh的数据发送到nextCh, 如果是这样的话，那应该很简单，为啥pop这么复杂呢？
-原因是多个`processorListener`在`distribute`中被依次调用，而对应的`listener.add`会写`addCh`,假如`addCh`阻塞了,就会影响其他的` listener`.
-另外如果队列为空的话,就不再走`pendingNotifications`,而是直接发到`p.nextCh`.
+
 
 ## 附1：GroupVersionKind Resource
 
@@ -820,3 +820,5 @@ func getExpectedGVKFromObject(expectedType interface{}) *schema.GroupVersionKind
 	return &gvk
 }
 ```
+
+若有格式问题或者查看后续更新，可见原文。[k8s client-go源码解析 -  1) tools/cache ](https://binnn6.github.io/posts/k8s%20client-go%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%20-%20toolscache.html)
