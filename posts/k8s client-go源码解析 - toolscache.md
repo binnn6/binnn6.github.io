@@ -34,7 +34,7 @@ Reflector 负责通过ListWatch将变更事件写入DeltaFIFO,然后Informer负�
 
 (⊙o⊙)…，这不是就是mysql的Secondary Index么
 
-<img src="http://devops-1255386119.cos.ap-beijing.myqcloud.com/2023-09-23-084329.png" alt="image-20230923164328536" style="zoom: 25%;" />
+<img src="http://devops-1255386119.cos.ap-beijing.myqcloud.com/2023-09-23-084329.png" alt="image-20230923164328536"  />
 
 所以实际最终存储的方式是：
 
